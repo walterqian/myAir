@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/healthy_color_circle"
+    android:layout_gravity="center_horizontal|bottom"
+
+    android:layout_alignParentTop="true"
+    android:gravity="center"
+    >
+
+    <TextView
+        android:id="@+id/aqi_fragment_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="34"
+        android:textSize="72dp"
+        android:textColor="#FFFFFF"
+        />
+
+</RelativeLayout>

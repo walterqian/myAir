@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -31,19 +32,28 @@ public class MainActivity extends FragmentActivity {
 
     CustomPagerAdapter mCustomPagerAdapter;
     ViewPager mViewPager;
+    LocationFragment mLocationFragment;
     ArrayList<String> tabs = new ArrayList<String>(5);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         // setting the tabs
         tabs.add("Home");
         tabs.add("Health");
         tabs.add("Toxics");
         tabs.add("Prizes");
         tabs.add("Learn More");
-        
+
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.aqi_fragment_container,new AQIFragment())
+                    .commit();
+        }
+
+
         mCustomPagerAdapter = new CustomPagerAdapter(getSupportFragmentManager(), this);
 
         mViewPager = (ViewPager) findViewById(R.id.pager);

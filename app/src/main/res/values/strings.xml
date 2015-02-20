@@ -8,4 +8,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    // Debugging purposes: Log tags
+
+    <string name="HERE_TAG">Was Here: </string>
+
+    //API key
 </resources>
