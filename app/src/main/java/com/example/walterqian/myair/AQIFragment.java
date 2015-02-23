@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +47,7 @@ public class AQIFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        
+
         setHasOptionsMenu(true);
 
 
@@ -54,7 +55,15 @@ public class AQIFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View rootView = inflater.inflate(R.layout.aqi_fragment, container, false);
+        /*
+        FragmentTransaction transaction = getFragmentManager()
+                .beginTransaction();
+        transaction.add(R.id.aqi_fragment_container,new AQIFragment()).commit();
+        */
+
+
         LocationFragment locationFragment = new LocationFragment();
         double[] latlng = locationFragment.getLocation(getActivity());
         populateAQI(latlng);
@@ -64,6 +73,11 @@ public class AQIFragment extends Fragment {
         return rootView;
 
 
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
     }
 
     public void setView(){

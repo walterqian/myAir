@@ -32,14 +32,18 @@ public class MainActivity extends FragmentActivity {
 
     CustomPagerAdapter mCustomPagerAdapter;
     ViewPager mViewPager;
-    LocationFragment mLocationFragment;
+
+    AQIFragment aqiFragment = new AQIFragment();
+    QuestionsFragment questionsFragment = new QuestionsFragment();
+
+    // AQIFragment aqiFragment = new AQIFragment();
+    // QuestionsFragment questionsFragment = new QuestionsFragment();
     ArrayList<String> tabs = new ArrayList<String>(5);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        LocationFragment locationFragment = new LocationFragment();
         // setting the tabs
         tabs.add("Home");
         tabs.add("Health");
@@ -49,10 +53,7 @@ public class MainActivity extends FragmentActivity {
 
         if (savedInstanceState == null) {
 
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.aqi_fragment_container,new AQIFragment())
-                    .add(R.id.questions_container,new QuestionsFragment())
-                    .commit();
+
         }
 
 
@@ -60,6 +61,50 @@ public class MainActivity extends FragmentActivity {
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mCustomPagerAdapter);
+
+
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+                final View aqiFragmentView = findViewById(R.id.aqi_fragment);
+                final View questionFragmentView = findViewById(R.id.question_fragment);
+                if (position == 0) {
+                     if (aqiFragmentView.getVisibility() == View.INVISIBLE)
+                         aqiFragmentView.setVisibility(View.VISIBLE);
+                     if (questionFragmentView.getVisibility() == View.INVISIBLE)
+                         questionFragmentView.setVisibility(View.VISIBLE);
+                }
+                else {
+
+                    if (aqiFragmentView!=null) {
+                         if (aqiFragmentView.getVisibility() == View.VISIBLE) {
+                            aqiFragmentView.setVisibility(View.INVISIBLE);
+                         }
+                    }
+
+                    if (questionFragmentView!=null)
+                        if (questionFragmentView.getVisibility() == View.VISIBLE) {
+                            questionFragmentView.setVisibility(View.INVISIBLE);
+                        }
+
+                }
+
+                Log.e("You are here: ",String.valueOf(position));
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+
     }
 
     class CustomPagerAdapter extends FragmentPagerAdapter {
@@ -78,19 +123,27 @@ public class MainActivity extends FragmentActivity {
             Fragment fragment = new DemoFragment();
 
 
-
-
             // Attach some data to the fragment
             // that we'll use to populate our fragment layouts
-            Bundle args = new Bundle(5);
-            args.putStringArrayList("key",tabs);
+            // Bundle args = new Bundle(5);
+            //args.putStringArrayList("key",tabs);
 
             // Set the arguments on the fragment
             // that will be fetched in the
             // DemoFragment@onCreateView
-            fragment.setArguments(args);
+            // fragment.setArguments(args);
+            if (position == 1) {
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.aqi_fragment_container, aqiFragment)
+                        .add(R.id.questions_container, questionsFragment)
+                        .commit();
 
-            return fragment;
+                return fragment;
+            }
+            else {
+
+                return fragment;
+            }
         }
 
         @Override
