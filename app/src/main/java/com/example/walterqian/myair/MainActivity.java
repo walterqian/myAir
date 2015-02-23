@@ -5,6 +5,8 @@ import java.util.Locale;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
@@ -35,6 +37,7 @@ public class MainActivity extends FragmentActivity {
 
     AQIFragment aqiFragment = new AQIFragment();
     QuestionsFragment questionsFragment = new QuestionsFragment();
+    HealthFragment healthFragment = new HealthFragment();
 
     // AQIFragment aqiFragment = new AQIFragment();
     // QuestionsFragment questionsFragment = new QuestionsFragment();
@@ -63,6 +66,7 @@ public class MainActivity extends FragmentActivity {
         mViewPager.setAdapter(mCustomPagerAdapter);
 
 
+        final View mainView = findViewById(R.id.main_container);
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -72,31 +76,47 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void onPageSelected(int position) {
 
-                final View aqiFragmentView = findViewById(R.id.aqi_fragment);
-                final View questionFragmentView = findViewById(R.id.question_fragment);
+                View aqiFragmentView = findViewById(R.id.aqi_fragment);
+                View questionFragmentView = findViewById(R.id.question_fragment);
+                View healthFragmentView = findViewById(R.id.health_fragment);
+
+                // set all to invisible
+                if (aqiFragmentView!=null)
+                    aqiFragmentView.setVisibility(View.INVISIBLE);
+                if (questionFragmentView!=null) {
+                    questionFragmentView.setVisibility(View.INVISIBLE);
+                    Log.e("You are here","Turning to invisible!");
+                }
+                if (healthFragmentView!=null)
+                    healthFragmentView.setVisibility(View.INVISIBLE);
+
                 if (position == 0) {
-                     if (aqiFragmentView.getVisibility() == View.INVISIBLE)
-                         aqiFragmentView.setVisibility(View.VISIBLE);
-                     if (questionFragmentView.getVisibility() == View.INVISIBLE)
-                         questionFragmentView.setVisibility(View.VISIBLE);
+                    if (aqiFragmentView!=null && questionFragmentView != null) {
+                        if (aqiFragmentView.getVisibility() == View.INVISIBLE)
+                            aqiFragmentView.setVisibility(View.VISIBLE);
+                        if (questionFragmentView.getVisibility() == View.INVISIBLE)
+                            questionFragmentView.setVisibility(View.VISIBLE);
+                    }
+                    Resources res = getResources();
+                    mainView.setBackground(res.getDrawable(R.drawable.sky_image));
+                }
+                else if (position == 1){
+                    if (healthFragmentView!=null) {
+                        if (healthFragmentView.getVisibility() == View.INVISIBLE)
+                            healthFragmentView.setVisibility(View.VISIBLE);
+
+
+                    }
+                    mainView.setBackgroundColor(Color.WHITE);
                 }
                 else {
 
-                    if (aqiFragmentView!=null) {
-                         if (aqiFragmentView.getVisibility() == View.VISIBLE) {
-                            aqiFragmentView.setVisibility(View.INVISIBLE);
-                         }
-                    }
-
-                    if (questionFragmentView!=null)
-                        if (questionFragmentView.getVisibility() == View.VISIBLE) {
-                            questionFragmentView.setVisibility(View.INVISIBLE);
-                        }
 
                 }
 
                 Log.e("You are here: ",String.valueOf(position));
             }
+
 
             @Override
             public void onPageScrollStateChanged(int state) {
@@ -137,13 +157,17 @@ public class MainActivity extends FragmentActivity {
                         .add(R.id.aqi_fragment_container, aqiFragment)
                         .add(R.id.questions_container, questionsFragment)
                         .commit();
-
                 return fragment;
             }
-            else {
-
+            else if (position == 2) {
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.health_fragment_container, healthFragment)
+                        .commit();
+                Log.e("HERE:","POSITION = 2");
                 return fragment;
             }
+            else
+                return fragment;
         }
 
         @Override

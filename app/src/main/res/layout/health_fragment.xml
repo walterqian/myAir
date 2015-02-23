@@ -1,5 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/health_fragment">
 
+    <Button
+        android:id="@+id/good_button"
+        android:layout_width="300dp"
+        android:layout_height="90dp"
+        android:background="@color/Chartreuse"
+        android:text="Good (0-50)"
+        android:textAlignment="center"
+        android:textSize="20dp"
+
+        style="?android:attr/borderlessButtonStyle"
+        />
+
+    <Button
+        android:id="@+id/moderate_button"
+        android:layout_width="300dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="90dp"
+        android:background="@color/Yellow"
+        android:text="Moderate (51-100)"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        style="?android:attr/borderlessButtonStyle"
+        />
+
+    <Button
+        android:id="@+id/unhealthy_for_sensitive_groups_button"
+        android:layout_width="300dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="180dp"
+        android:background="@color/Orange"
+        android:text="Unhealthy for Sensitive Groups (101-150)"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        style="?android:attr/borderlessButtonStyle"
+        />
+
+    <Button
+        android:id="@+id/unhealthy_button"
+        android:layout_width="300dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="270dp"
+        android:background="@color/Red"
+        android:text="Unhealthy (151-200)"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        style="?android:attr/borderlessButtonStyle"
+        />
+
+    <Button
+        android:id="@+id/very_unhealthy_button"
+        android:layout_width="300dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="360dp"
+        android:background="@color/DarkViolet"
+        android:text="Very Unhealthy (201+)"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        style="?android:attr/borderlessButtonStyle"
+        />
 </RelativeLayout>
