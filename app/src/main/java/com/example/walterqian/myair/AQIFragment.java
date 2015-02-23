@@ -24,8 +24,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -35,15 +37,17 @@ public class AQIFragment extends Fragment {
 
     int[] AQI = new int[1];
     TextView textView;
+
+    Globals globals = new Globals();
+
     public AQIFragment(){
 
     }
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-
+        
         setHasOptionsMenu(true);
-;
 
 
     }
@@ -68,8 +72,15 @@ public class AQIFragment extends Fragment {
 
     public void populateAQI(double[] latlng){
         getAirQuality airQuality = new getAirQuality();
+
+        if (latlng[0] == globals.getLocErrorDouble()) {
+            airQuality.execute(globals.getLocationError(), globals.getLocationError());
+            return;
+        }
+
         String latitude = String.valueOf(latlng[0]);
         String longitude = String.valueOf(latlng[1]);
+
         airQuality.execute(latitude,longitude);
     }
 
@@ -111,15 +122,15 @@ public class AQIFragment extends Fragment {
 
             String urlString; //Build this as URL
             final String format = "application/json";
-            String latitude = String.valueOf(params[0]);
-            String longitude = String.valueOf(params[1]);
+            String latitude = params[0];
+            String longitude = params[1];
             String distance = "10";
-            String date = "2015-02-18";
+            String date = getDate();
             String zipCode = "90024";
             String API_KEY = "88668394-4867-4EA3-BB54-C08FE6FC434F";
             String jsonAQI;
 
-            if (latitude == "-1000" && longitude == "-1000") {
+            if (latitude == globals.getLocationError()) {
                 urlString = "http://www.airnowapi.org/aq/forecast/zipCode/?format=" + format +
                         "&zipCode=" + zipCode +
                         "&date=" + date +
@@ -137,7 +148,6 @@ public class AQIFragment extends Fragment {
             try {
                 url = new URL(urlString);
                 urlConnection = (HttpURLConnection) url.openConnection();
-                Log.e("URLSTRING:", url.toString());
 
                 urlConnection.setRequestMethod("GET");
                 urlConnection.setDoOutput(true);
@@ -150,7 +160,6 @@ public class AQIFragment extends Fragment {
 
                 if (inputStream == null) {
                     // Nothing to do.
-                    Log.e("Error", "NO INPUTSTREAM");
                     AQI[0] = -1;
                     return AQI;
                 }
@@ -169,7 +178,6 @@ public class AQIFragment extends Fragment {
 
                 }
                 jsonAQI = total.toString();
-                Log.e("JSON String:", jsonAQI);
 
 
             } catch (Exception e) {
@@ -185,7 +193,6 @@ public class AQIFragment extends Fragment {
                 }
                 if (urlConnection != null) {
                     urlConnection.disconnect();
-                    Log.e("Was Here:", "Connection Closed");
                 }
             }
             try {
@@ -205,6 +212,21 @@ public class AQIFragment extends Fragment {
         @Override
         protected void onPostExecute(int[] results) {
             setView();
+        }
+
+
+        private String getDate(){
+            Calendar c = Calendar.getInstance();
+
+
+            int yy = c.get(Calendar.YEAR);
+            int mm = c.get(Calendar.MONTH);
+            int dd = c.get(Calendar.DAY_OF_MONTH);
+
+           StringBuilder date = new StringBuilder();
+           date.append(yy).append("-").append(mm + 1).append("-")
+                   .append(dd);
+            return date.toString();
         }
     }
 }

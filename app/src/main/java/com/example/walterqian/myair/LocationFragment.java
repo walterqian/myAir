@@ -35,7 +35,7 @@ public class LocationFragment extends Fragment{
     LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
-
+            getLocation(getActivity());
         }
 
         public void onStatusChanged(String provider, int status, Bundle extras) {}
@@ -47,12 +47,13 @@ public class LocationFragment extends Fragment{
 
     public double[] getLocation(Context context){
 
+        Globals globals = new Globals();
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 10, locationListener);
 
-        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        location = locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER);
+
         double[] latlng = new double[2];
-        Log.e("WAS HERE","getLocation");
         int zip;
         if (location!=null){
             latlng[0] = location.getLatitude();
@@ -60,10 +61,9 @@ public class LocationFragment extends Fragment{
         }
 
         else {
-            Log.e("ERROR with LOCATION", "getlocation()");
             // UNABLE TO GET LOCATION
-            latlng[0] = -1000;
-            latlng[1] = -1000;
+            latlng[0] = globals.getLocErrorDouble();
+            latlng[1] = globals.getLocErrorDouble();
         }
 
 

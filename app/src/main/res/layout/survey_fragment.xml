@@ -5,28 +5,46 @@
     >
 
     <TextView
+        android:paddingLeft="20dp"
         android:id="@+id/survey_fragment_question"
         android:background="@drawable/question_box"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:paddingTop="10dp"
+        android:textColor="#FFFFFF"
+        />
 
     <Button
         android:id="@+id/survey_fragment_yes"
         android:background="@drawable/answer_box"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:layout_marginLeft="20dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="80dp"
+
+        android:text="Yes"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:gravity="center"
         style="?android:attr/borderlessButtonStyle"
+
         />
 
     <Button
         android:id="@+id/survey_fragment_no"
         android:background="@drawable/answer_box"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:layout_marginLeft="160dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="140dp"
+        android:textAlignment="gravity"
+        android:text="No"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:gravity="center"
         style="?android:attr/borderlessButtonStyle"
 
         />

@@ -39,7 +39,7 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        LocationFragment locationFragment = new LocationFragment();
         // setting the tabs
         tabs.add("Home");
         tabs.add("Health");
@@ -48,8 +48,10 @@ public class MainActivity extends FragmentActivity {
         tabs.add("Learn More");
 
         if (savedInstanceState == null) {
+
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.aqi_fragment_container,new AQIFragment())
+                    .add(R.id.questions_container,new QuestionsFragment())
                     .commit();
         }
 
@@ -100,6 +102,8 @@ public class MainActivity extends FragmentActivity {
         public CharSequence getPageTitle(int position) {
             return tabs.get(position);
         }
+
+
     }
 
     public static class DemoFragment extends Fragment {
@@ -112,7 +116,7 @@ public class MainActivity extends FragmentActivity {
             // the fragment was instantiated in the
             // CustomPagerAdapter
             Bundle args = getArguments();
-            ((TextView) rootView.findViewById(R.id.textView)).setText("" + args.getStringArrayList("key"));
+           // ((TextView) rootView.findViewById(R.id.textView)).setText("" + args.getStringArrayList("key"));
 
             return rootView;
         }

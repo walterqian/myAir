@@ -1,21 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@drawable/healthy_color_circle"
-    android:layout_gravity="center_horizontal|bottom"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
 
-    android:layout_alignParentTop="true"
-    android:gravity="center"
     >
-
     <TextView
-        android:id="@+id/aqi_fragment_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="34"
-        android:textSize="72dp"
+        android:text="Current Air Quality"
+        android:textStyle="bold"
+        android:textSize="32dp"
+        android:layout_centerHorizontal="true"
         android:textColor="#FFFFFF"
         />
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/healthy_color_circle"
+        android:layout_centerInParent="true"
+        >
+         <TextView
+            android:id="@+id/aqi_fragment_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="34"
+            android:textSize="72dp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:layout_gravity="center"
+            />
+    </FrameLayout>
 
+    <TextView
+        android:id="@+id/air_quality_string"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Good"
+        android:textSize="32dp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+
+        />
 </RelativeLayout>
