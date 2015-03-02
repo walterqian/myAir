@@ -56,4 +56,13 @@
         android:layout_marginTop="50dp"
         ></FrameLayout>
 
+    <FrameLayout
+        android:id="@+id/tabs_container"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        >
+
+        </FrameLayout>
 </RelativeLayout>

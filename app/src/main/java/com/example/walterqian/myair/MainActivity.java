@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -23,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 import it.neokree.materialtabs.MaterialTab;
@@ -34,13 +36,14 @@ public class MainActivity extends FragmentActivity {
 
     CustomPagerAdapter mCustomPagerAdapter;
     ViewPager mViewPager;
+    FragmentTabHost mTabHost;
 
     AQIFragment aqiFragment = new AQIFragment();
     QuestionsFragment questionsFragment = new QuestionsFragment();
     HealthFragment healthFragment = new HealthFragment();
+    TabFragment tabFragment = new TabFragment();
 
-    // AQIFragment aqiFragment = new AQIFragment();
-    // QuestionsFragment questionsFragment = new QuestionsFragment();
+
     ArrayList<String> tabs = new ArrayList<String>(5);
 
     @Override
@@ -58,7 +61,18 @@ public class MainActivity extends FragmentActivity {
 
 
         }
-
+        mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.tabs_container,tabFragment)
+                .commit();
+        mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String tabId) {
+                switch(mTabHost.getCurrentTab()){
+                    case 0:
+                }
+            }
+        });
 
         mCustomPagerAdapter = new CustomPagerAdapter(getSupportFragmentManager(), this);
 
